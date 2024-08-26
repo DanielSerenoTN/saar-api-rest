@@ -1,7 +1,7 @@
-use crate::domain::products::entities::Product;
-use crate::domain::products::interfaces::ProductRepository;
-use crate::infrastructure::database::mappers::ProductDocument;
-use mongodb::{bson::doc, Client, Collection};
+use crate::domain::products::entities::product::Product;
+use crate::domain::products::traits::product_repository::ProductRepository;
+use crate::infrastructure::database::mappers::products::product_mapper::ProductDocument;
+use mongodb::{bson::{doc, to_bson}, Client, Collection};
 use uuid::Uuid;
 
 pub struct MongoProductRepository {
@@ -27,7 +27,7 @@ impl ProductRepository for MongoProductRepository {
     }
 
     async fn get(&self, id: Uuid) -> Option<Product> {
-        let filter = doc! { "uuid": id };
+        let filter = doc! { "uuid": id.to_string() }; // Convertir Uuid a String
         self.collection.find_one(filter, None)
             .await
             .ok()
@@ -36,8 +36,17 @@ impl ProductRepository for MongoProductRepository {
     }
 
     async fn update(&self, product: Product) -> Result<(), String> {
-        let filter = doc! { "uuid": product.id };
-        let update_doc = doc! { "$set": ProductDocument::from(product) };
+        let filter = doc! { "uuid": product.id.to_string() }; // Convertir Uuid a String
+        let product_doc: ProductDocument = product.into();
+
+        // Convertir `ProductDocument` a `Document` (BSON)
+        let update_doc = to_bson(&product_doc)
+            .ok()
+            .and_then(|bson| bson.as_document().cloned())
+            .ok_or("Failed to convert product to BSON document")?;
+
+        let update_doc = doc! { "$set": update_doc };
+
         self.collection.update_one(filter, update_doc, None)
             .await
             .map_err(|e| e.to_string())
@@ -45,7 +54,7 @@ impl ProductRepository for MongoProductRepository {
     }
 
     async fn delete(&self, id: Uuid) -> Result<(), String> {
-        let filter = doc! { "uuid": id };
+        let filter = doc! { "uuid": id.to_string() }; // Convertir Uuid a String
         self.collection.delete_one(filter, None)
             .await
             .map_err(|e| e.to_string())
