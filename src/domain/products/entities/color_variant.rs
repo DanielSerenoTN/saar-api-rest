@@ -1,8 +1,11 @@
+use crate::domain::products::entities::stock::SizeAvailability;
+use serde::{Serialize, Deserialize};
+
 #[derive(Serialize, Deserialize)]
-struct ColorVariant {
-    color: String,
-    hex: String,
-    images: Vec<String>,
-    image: String,
-    size_availability: Vec<SizeAvailability>,
+pub struct ColorVariant {
+    pub color: String,
+    pub hex: String,
+    pub images: Vec<String>,
+    pub image: String,
+    pub size_availability: Vec<SizeAvailability>,
 }

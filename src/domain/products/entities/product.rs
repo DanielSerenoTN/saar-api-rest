@@ -1,16 +1,24 @@
+use uuid::Uuid;
+
+use crate::domain::products::entities::stock::Stock;
+use crate::domain::products::entities::color_variant::ColorVariant;
+use crate::domain::products::entities::measurements::Measurements;
+use crate::domain::products::entities::image::Image;
+use serde::{Serialize, Deserialize};
+
 #[derive(Serialize, Deserialize)]
-struct Product {
-    id: Uuid,
-    name: String,
-    category: String,
-    description: String,
-    price: f64,
-    material: String,
-    brand: String,
-    stock: Stock,
-    sizes: Vec<String>,
-    tags: Vec<String>,
-    color_variants: Vec<ColorVariant>,
-    measurements: Measurements,
-    images: Vec<Image>,
+pub struct Product {
+    pub id: Uuid,
+    pub name: String,
+    pub category: String,
+    pub description: String,
+    pub price: f64,
+    pub material: String,
+    pub brand: String,
+    pub stock: Stock,
+    pub sizes: Vec<String>,
+    pub tags: Vec<String>,
+    pub color_variants: Vec<ColorVariant>,
+    pub measurements: Measurements,
+    pub images: Vec<Image>,
 }

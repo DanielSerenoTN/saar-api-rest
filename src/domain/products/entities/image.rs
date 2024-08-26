@@ -1,7 +1,9 @@
+use serde::{Serialize, Deserialize};
+
 #[derive(Serialize, Deserialize)]
-struct Image {
-    id: String,
-    url: String,
-    description: String,
-    default: bool,
+pub struct Image {
+    pub id: String,
+    pub url: String,
+    pub description: String,
+    pub default: bool,
 }

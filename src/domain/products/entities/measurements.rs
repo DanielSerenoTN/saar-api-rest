@@ -1,7 +1,9 @@
+use serde::{Serialize, Deserialize};
+
 #[derive(Serialize, Deserialize)]
-struct Measurements {
-    chest: String,
-    waist: String,
-    length: String,
-    sleeve_length: String,
+pub struct Measurements {
+    pub chest: String,
+    pub waist: String,
+    pub length: String,
+    pub sleeve_length: String,
 }

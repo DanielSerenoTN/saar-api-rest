@@ -1,11 +1,14 @@
-#[derive(Serialize, Deserialize)]
-struct Stock {
-    total_stock: u32,
-    availability: Vec<SizeAvailability>,
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct Stock {
+    pub total_stock: u32,
+    pub availability: Vec<SizeAvailability>,
 }
 
-#[derive(Serialize, Deserialize)]
-struct SizeAvailability {
-    size: String,
-    quantity: u32,
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct SizeAvailability {
+    pub size: String,
+    pub quantity: u32,
 }
+
