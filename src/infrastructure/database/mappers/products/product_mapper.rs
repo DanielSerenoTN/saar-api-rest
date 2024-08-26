@@ -1,4 +1,8 @@
-use crate::domain::products::entities::{Product, Stock, ColorVariant, Measurements, Image};
+use crate::domain::products::entities::product::Product;
+use crate::domain::products::entities::stock::Stock;
+use crate::domain::products::entities::color_variant::ColorVariant;
+use crate::domain::products::entities::measurements::Measurements;
+use crate::domain::products::entities::image::Image;
 use crate::infrastructure::database::mappers::products::{stock_mapper, color_variant_mapper, measurements_mapper, image_mapper};
 use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};

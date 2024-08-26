@@ -1,3 +1,15 @@
+use crate::domain::products::entities::measurements::Measurements;
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct MeasurementsDocument {
+    pub chest: String,
+    pub waist: String,
+    pub length: String,
+    pub sleeve_length: String,
+}
+
+
 impl From<Measurements> for MeasurementsDocument {
     fn from(measurements: Measurements) -> Self {
         MeasurementsDocument {

@@ -1,3 +1,19 @@
+use crate::domain::products::entities::stock::{Stock, SizeAvailability};
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct StockDocument {
+    pub total_stock: u32,
+    pub availability: Vec<SizeAvailabilityDocument>,
+}
+
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct SizeAvailabilityDocument {
+    pub size: String,
+    pub quantity: u32,
+}
+
 impl From<Stock> for StockDocument {
     fn from(stock: Stock) -> Self {
         StockDocument {

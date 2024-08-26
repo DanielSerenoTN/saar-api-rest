@@ -1,2 +1,3 @@
 pub mod entities;
-pub mod repositories;
+pub mod traits;
+pub mod product_service;

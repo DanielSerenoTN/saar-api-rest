@@ -1,3 +1,16 @@
+use crate::domain::products::entities::stock::SizeAvailability;
+use crate::domain::products::entities::color_variant::ColorVariant;
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ColorVariantDocument {
+    pub color: String,
+    pub hex: String,
+    pub images: Vec<String>,
+    pub image: String,
+    pub size_availability: Vec<SizeAvailability>,
+}
+
 impl From<ColorVariant> for ColorVariantDocument {
     fn from(color_variant: ColorVariant) -> Self {
         ColorVariantDocument {
@@ -5,7 +18,7 @@ impl From<ColorVariant> for ColorVariantDocument {
             hex: color_variant.hex,
             images: color_variant.images,
             image: color_variant.image,
-            size_availability: color_variant.size_availability.into_iter().map(SizeAvailabilityDocument::from).collect(),
+            size_availability: color_variant.size_availability.into_iter().map(SizeAvailability::from).collect(),
         }
     }
 }
